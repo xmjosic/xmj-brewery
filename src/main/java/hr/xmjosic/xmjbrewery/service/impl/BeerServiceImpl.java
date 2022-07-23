@@ -7,13 +7,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+import static hr.xmjosic.xmjbrewery.dto.BeerStyleEnum.PALE_ALE;
+
 @Slf4j
 @Service
 public class BeerServiceImpl implements BeerService {
   @Override
   public BeerDto getBeerById(UUID beerId) {
     log.debug("--> Get beer by ID: {}", beerId);
-    return BeerDto.builder().id(beerId).beerName("Zmajsko").beerStyle("Pale Ale").build();
+    return BeerDto.builder().id(beerId).beerName("Zmajsko").beerStyle(PALE_ALE).build();
   }
 
   @Override

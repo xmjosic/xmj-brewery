@@ -17,6 +17,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.UUID;
 
+import static hr.xmjosic.xmjbrewery.dto.BeerStyleEnum.*;
+
 @SuppressWarnings("unused")
 @WebMvcTest(BeerController.class)
 class BeerControllerTest {
@@ -34,7 +36,7 @@ class BeerControllerTest {
         BeerDto.builder()
             .id(UUID.randomUUID())
             .beerName("C4")
-            .beerStyle("IPA")
+            .beerStyle(IPA)
             .upc(241567943L)
             .build();
   }
@@ -59,7 +61,7 @@ class BeerControllerTest {
   void createBeer() throws Exception {
     Mockito.when(beerService.saveBeer(ArgumentMatchers.any(BeerDto.class))).thenReturn(validBeer);
 
-    BeerDto dto = BeerDto.builder().beerName("dollar").beerStyle("despair").build();
+    BeerDto dto = BeerDto.builder().beerName("dollar").beerStyle(PILSNER).build();
     String request = objectMapper.writeValueAsString(dto);
 
     mockMvc
@@ -73,7 +75,7 @@ class BeerControllerTest {
 
   @Test
   void updateBeer() throws Exception {
-    BeerDto dto = BeerDto.builder().beerName("cliff").beerStyle("excess").build();
+    BeerDto dto = BeerDto.builder().beerName("cliff").beerStyle(STOUT).build();
     String request = objectMapper.writeValueAsString(dto);
 
     mockMvc
@@ -88,10 +90,10 @@ class BeerControllerTest {
   @Test
   void deleteBeer() throws Exception {
     mockMvc
-            .perform(
-                    MockMvcRequestBuilders.delete("/api/v1/beer/" + validBeer.id().toString())
-                            .accept(MediaType.APPLICATION_JSON)
-                            .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(MockMvcResultMatchers.status().isNoContent());
+        .perform(
+            MockMvcRequestBuilders.delete("/api/v1/beer/" + validBeer.id().toString())
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(MockMvcResultMatchers.status().isNoContent());
   }
 }

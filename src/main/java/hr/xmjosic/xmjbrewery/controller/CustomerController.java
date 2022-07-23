@@ -30,14 +30,14 @@ public class CustomerController {
 
   @PutMapping("/{customerId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void updateBeer(
+  public void updateCustomer(
       @PathVariable("customerId") UUID customerId, @RequestBody CustomerDto customerDto) {
     customerService.updateCustomer(customerId, customerDto);
   }
 
   @DeleteMapping("/{customerId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteBeer(@PathVariable("customerId") UUID customerId) {
+  public void deleteCustomer(@PathVariable("customerId") UUID customerId) {
     customerService.deleteCustomer(customerId);
   }
 }
