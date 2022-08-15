@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.UUID;
 
+import static hr.xmjosic.xmjbrewery.dto.BeerStyleEnum.IPA;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -54,8 +55,7 @@ class CustomerControllerTest {
   void createCustomer() throws Exception {
     when(customerService.saveCustomer(any(CustomerDto.class))).thenReturn(validCustomer);
 
-    BeerDto dto = BeerDto.builder().beerName("dollar").beerStyle("despair").build();
-    String request = objectMapper.writeValueAsString(dto);
+    String request = objectMapper.writeValueAsString(validCustomer);
 
     mockMvc
         .perform(
@@ -67,7 +67,7 @@ class CustomerControllerTest {
   }
 
   @Test
-  void updateBeer() throws Exception {
+  void updateCustomer() throws Exception {
     CustomerDto dto = CustomerDto.builder().name("Boris").build();
     String request = objectMapper.writeValueAsString(dto);
 
@@ -81,7 +81,7 @@ class CustomerControllerTest {
   }
 
   @Test
-  void deleteBeer() throws Exception {
+  void deleteCustomer() throws Exception {
     mockMvc
         .perform(
             delete("/api/v1/customer/" + validCustomer.id().toString())

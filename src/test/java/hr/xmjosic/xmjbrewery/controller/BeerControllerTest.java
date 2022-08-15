@@ -53,7 +53,8 @@ class BeerControllerTest {
         .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(validBeer.id().toString()))
         .andExpect(MockMvcResultMatchers.jsonPath("$.beerName").value(validBeer.beerName()))
-        .andExpect(MockMvcResultMatchers.jsonPath("$.beerStyle").value(validBeer.beerStyle()))
+        .andExpect(
+            MockMvcResultMatchers.jsonPath("$.beerStyle").value(validBeer.beerStyle().toString()))
         .andExpect(MockMvcResultMatchers.jsonPath("$.upc").value(validBeer.upc()));
   }
 
